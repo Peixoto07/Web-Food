@@ -1,0 +1,84 @@
+
+<section >
+ <div class="w-full mx-auto  flex flex-col justify-center pt-20 relative p-4">
+
+   <!-- Starts component -->
+   <div class="flex flex-col w-full" x-data="{
+        skip: 1,
+        atBeginning: false,
+        atEnd: false,
+        next() {
+            this.to((current, offset) => current + (offset * this.skip))
+        },
+        prev() {
+            this.to((current, offset) => current - (offset * this.skip))
+        },
+        to(strategy) {
+            let slider = this.$refs.slider
+            let current = slider.scrollLeft
+            let offset = slider.firstElementChild.getBoundingClientRect().width
+            slider.scrollTo({ left: strategy(current, offset), behavior: 'smooth' })
+        },
+        focusableWhenVisible: {
+            'x-intersect:enter'() {
+                this.$el.removeAttribute('tabindex')
+            },
+            'x-intersect:leave'() {
+                this.$el.setAttribute('tabindex', '-1')
+            },
+        },
+        disableNextAndPreviousButtons: {
+            'x-intersect:enter.threshold.05'() {
+                let slideEls = this.$el.parentElement.children
+                // If this is the first slide.
+                if (slideEls[0] === this.$el) {
+                    this.atBeginning = true
+                // If this is the last slide.
+                } else if (slideEls[slideEls.length-1] === this.$el) {
+                    this.atEnd = true
+                }
+            },
+            'x-intersect:leave.threshold.05'() {
+                let slideEls = this.$el.parentElement.children
+                // If this is the first slide.
+                if (slideEls[0] === this.$el) {
+                    this.atBeginning = false
+                // If this is the last slide.
+                } else if (slideEls[slideEls.length-1] === this.$el) {
+                    this.atEnd = false
+                }
+            },
+        },
+    }">
+    <div class="flex items-center w-full" aria-labelledby="carousel-label" role="region" tabindex="0" x-on:keydown.left="prev" x-on:keydown.right="next">
+
+     <button class=" z-10 -mr-[1rem] p-4 justify-center bg-orange-500 hover:bg-orange-600 size-8 flex focus:bg-orange-400 rounded-full items-center text-white opacity-50" :class="{ 'opacity-50 ': atBeginning }" :aria-disabled="atBeginning" :tabindex="atEnd ? -1 : 0" x-on:click="prev" tabindex="0" aria-disabled="true">
+        <span aria-hidden="true" class="mx-auto">←</span>
+        <span class="sr-only">Skip to previous slide page</span>
+    </button>
+
+     <ul class="flex gap-8 no-scrollbar overflow-x-scroll mt-4 scrollbar-hide snap-mandatory snap-x w-full  rounded-2xl" role="listbox" aria-labelledby="carousel-content-label" tabindex="0" x-ref="slider">
+      <li class="items-center justify-center  flex flex-col shrink-0 snap-start h-full w-fit rounded-2xl  bg-gray-100" role="option" x-bind="disableNextAndPreviousButtons">
+       
+        <img class="md:max-w-md rounded-2xl" src="https://static.ifood-static.com.br/image/upload/t_high/discoveries/2201PromotionsCampanhasAtualizacaoCapastoprestaurantescomdescontoCapaPrincipal_lc9f.png?imwidth=828" alt="">
+       
+      </li>
+    
+      <li class="items-center justify-center  flex flex-col shrink-0 snap-start h-full w-fit rounded-2xl  bg-gray-100" role="option" x-bind="disableNextAndPreviousButtons">
+            <img class="md:max-w-md rounded-2xl" src="https://static.ifood-static.com.br/image/upload/t_high/discoveries/2706BORADEACONCHEGOSCAPAPRINCIPAL_TiTj.png?imwidth=828" alt="">
+      </li>
+
+      <li class="items-center justify-center  flex flex-col shrink-0 snap-start h-full w-fit rounded-2xl  bg-gray-100" role="option" x-bind="disableNextAndPreviousButtons">
+       <img class="md:max-w-md rounded-2xl" src="https://static.ifood-static.com.br/image/upload/t_high/discoveries/2111queridinhosprincipalamarelo_ffl9.png?imwidth=828" alt="">
+      </li>
+     </ul>
+     <button class=" z-10 -ml-[1rem] p-4 justify-center bg-orange-500 hover:bg-orange-600 size-8 flex focus:bg-orange-400 rounded-full items-center text-white" :class="{ 'opacity-50 ': atEnd }" :aria-disabled="atEnd" :tabindex="atEnd ? -1 : 0" x-on:click="next" tabindex="0">
+        <span aria-hidden="true" class="mx-auto">→</span>
+        <span class="sr-only">Skip to next slide page</span>
+    </button>
+    </div>
+   </div> <!-- Ends component -->
+   
+ 
+ </div>
+</section>

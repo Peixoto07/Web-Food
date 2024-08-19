@@ -1,0 +1,24 @@
+---
+import NavBar from '../components/NavBar.astro';
+import Hero from '../components/Hero.astro';
+import Categoria from '../components/Categoria.astro';
+import Layout from '../layouts/Layout.astro';
+import MaisPedidos from '../components/MaisPedidos.astro';
+import Produtos from '../components/Produtos.astro';
+
+---
+
+<Layout title="Welcome to Astro.">
+	<main class=" mx-auto bg-gray-50">
+		<NavBar/>
+		<Hero />
+		<section class="container mx-auto pt-4 ">
+			<Categoria/>
+			<MaisPedidos/>
+			<Produtos/>
+		</section>
+		test
+	</main>
+</Layout>
+
+
