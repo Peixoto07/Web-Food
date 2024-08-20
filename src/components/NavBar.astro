@@ -1,26 +1,77 @@
-<!-- Navbar -->
-<nav class="bg-white shadow-sm p-4 flex items-center justify-between">
-  <div class="flex items-center space-x-2">
-      <h1 class="text-lg font-semibold text-gray-800">Seja Bem-Vindo <span class="wave-emoji">👋</span></h1>
-  </div>
-  <div class="flex items-center space-x-2">
-      <button class="text-gray-500 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-      </button>
-  </div>
-</nav>
+<nav class="fixed top-0 left-0 right-0 z-[60] bg-white shadow-sm px-2" x-data="{ open: false, activeLink: null }">
+    <div class="container  mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="#" class="text-xl font-bold text-gray-900">
+                    <span class="text-black">B7</span><span class="text-yellow-500"> • </span><span class="text-gray-800">Delivery</span>
+                </a>
+            </div>
 
-<!-- Search Bar -->
-<div class="p-4">
-  <label class="block text-gray-500 text-sm mb-2">O que deseja pra hoje?</label>
-  <div class="relative">
-      <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-          <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m-6.4 1.85a7 7 0 1114 0 7 7 0 01-14 0z"></path>
-          </svg>
-      </span>
-      <input type="text" placeholder="Digite o nome do Burger" class="pl-10 pr-4 py-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-orange-400">
-  </div>
-</div>
+            <!-- Menu Items for larger screens -->
+            <div class="hidden sm:block sm:ml-6">
+                <div class="flex space-x-4">
+                    <a href="#" :class="{ 'bg-orange-500 text-white': activeLink === 'Inicio' }" @click="activeLink = 'Inicio'"
+                        class="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">Início</a>
+                    <a href="#" :class="{ 'bg-orange-500 text-white': activeLink === 'Burgers' }" @click="activeLink = 'Burgers'"
+                        class="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">Burgers</a>
+                    <a href="#" :class="{ 'bg-orange-500 text-white': activeLink === 'Servicos' }" @click="activeLink = 'Servicos'"
+                        class="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">Serviços</a>
+                    <a href="#" :class="{ 'bg-orange-500 text-white': activeLink === 'Contato' }" @click="activeLink = 'Contato'"
+                        class="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">Contato</a>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button -->
+            <div class="sm:hidden">
+                <button @click="open = !open" class="text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-in Menu -->
+    <div x-show="open" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="-translate-x-full"
+        class="fixed inset-0 bg-white z-[100] w-64 h-full shadow-lg flex flex-col p-4 space-y-4">
+        
+        <!-- Close Button -->
+        <button @click="open = false" class="self-end text-gray-800 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Login Button -->
+        <a href="#" class="bg-orange-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-600">
+            Fazer Login
+        </a>
+
+        <!-- Menu Items -->
+        <a href="#" :class="{ 'text-orange-500': activeLink === 'Cardapio' }" @click="activeLink = 'Cardapio'"
+            class="text-gray-800 px-3 py-2 text-sm font-medium flex items-center hover:border-orange-500 hover:border-b-2">
+            <span class="material-icons">Cardápio</span> 
+        </a>
+        <a href="#" :class="{ 'text-orange-500': activeLink === 'Sacola' }" @click="activeLink = 'Sacola'"
+            class="text-gray-800 px-3 py-2  text-sm font-medium flex items-center hover:border-orange-500 hover:border-b-2">
+            <span class="material-icons">Sacola</span> 
+        </a>
+        <a href="#" :class="{ 'text-orange-500': activeLink === 'Favoritos' }" @click="activeLink = 'Favoritos'"
+            class="text-gray-800 px-3 py-2  text-sm font-medium flex items-center hover:border-orange-500 hover:border-b-2">
+            <span class="material-icons">Favoritos</span> 
+        </a>
+        <a href="#" :class="{ 'text-orange-500': activeLink === 'MeusPedidos' }" @click="activeLink = 'MeusPedidos'"
+            class="text-gray-800 px-3 py-2  text-sm font-medium flex items-center hover:border-orange-500 hover:border-b-2">
+            <span class="material-icons">Pedidos</span> Meus 
+        </a>
+        <a href="#" :class="{ 'text-orange-500': activeLink === 'Configuracoes' }" @click="activeLink = 'Configuracoes'"
+            class="text-gray-800 px-3 py-2  text-sm font-medium flex items-center hover:border-orange-500 hover:border-b-2">
+            <span class="material-icons">Configurações</span> 
+        </a>
+    </div>
+</nav>
