@@ -1,23 +1,13 @@
 ---
-import NavBar from '../components/NavBar.astro';
-import Hero from '../components/Hero.astro';
-import Categoria from '../components/Categoria.astro';
+import LoginPage from './LoginPage.astro';
 import Layout from '../layouts/Layout.astro';
-import MaisPedidos from '../components/MaisPedidos.astro';
-import Produtos from '../components/Produtos.astro';
+
 
 ---
 
 <Layout title="Welcome to Astro.">
 	<main class=" mx-auto bg-gray-50">
-		<NavBar/>
-		<Hero />
-		<Categoria/>
-		<section class="container mx-auto pt-4 ">
-			<MaisPedidos/>
-			<Produtos/>
-		</section>
-		test
+	<LoginPage />
 	</main>
 </Layout>
 
